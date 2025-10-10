@@ -1,28 +1,28 @@
+
 using Microsoft.EntityFrameworkCore;
-using QuizMvc.Models;
+using QuizMvc.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<QuizDbContext>(options => {
-    options.UseSqlite(
-        builder.Configuration["ConnectionStrings:QuizDbContextConnection"]);
-});
+// EF Core setup (SQLite)
+builder.Services.AddDbContext<QuizDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("QuizConnection")));
+
+// Repository pattern
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// Seed database
+using (var scope = app.Services.CreateScope())
 {
-    app.UseDeveloperExceptionPage();
+    var db = scope.ServiceProvider.GetRequiredService<QuizDbContext>();
+    db.Database.EnsureCreated();
+    DbInit.Seed(db);
 }
 
-app.UseStaticFiles();
-
 app.MapDefaultControllerRoute();
-
-// app.MapControllerRoute(
-//     name: "default",
-//     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
+
