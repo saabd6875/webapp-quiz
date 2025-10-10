@@ -6,10 +6,10 @@ namespace QuizMvc.Models
     public class Answers
     {
         public int AnswerId { get; set; }
-        public string Tekst { get; set; }
+        public required string Tekst { get; set; }
         public bool IsCorrect { get; set; }
 
         public int QuestionId { get; set; }
-        public Question Question { get; set; }
+        public required Question Question { get; set; }
     }
 }
