@@ -1,6 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using QuizMvc.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<QuizDbContext>(options => {
+    options.UseSqlite(
+        builder.Configuration["ConnectionStrings:QuizDbContextConnection"]);
+});
 
 var app = builder.Build();
 

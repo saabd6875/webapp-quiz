@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using QuizMvc.Models;
 
-public class AppDbContext : DbContext
+namespace QuizMvc.Models;
+
+public class QuizDbContext : DbContext
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Quiz> Quizzes { get; set; }
