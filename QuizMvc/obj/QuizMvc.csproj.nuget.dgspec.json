@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {}
+    "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {
+    "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
+        "projectUniqueName": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
         "projectName": "QuizMvc",
-        "projectPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
-        "packagesPath": "C:\\Users\\wafaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\",
+        "projectPath": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
+        "packagesPath": "C:\\Users\\saida\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\wafaa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\saida\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -43,7 +43,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.9, )"
             }
