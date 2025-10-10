@@ -1,6 +1,6 @@
 using system;
 
-namespace QuizMvc.Models
+namespace QuizMvc.Models {
 
 public class Answers {
     public int AnswerID { get; set; }
@@ -9,4 +9,5 @@ public class Answers {
 
     public int QuestionID { get; set; }
     public Question Question {get; set; }
+}
 }
