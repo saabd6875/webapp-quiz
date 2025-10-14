@@ -3218,19 +3218,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\saida\\.nuget\\packages\\": {}
+    "C:\\Users\\wafaa\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
+      "projectUniqueName": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj",
       "projectName": "QuizMvc",
-      "projectPath": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
-      "packagesPath": "C:\\Users\\saida\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\saida\\WebApplikasjoner\\webapp-quiz\\QuizMvc\\obj\\",
+      "projectPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj",
+      "packagesPath": "C:\\Users\\wafaa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\saida\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\wafaa\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

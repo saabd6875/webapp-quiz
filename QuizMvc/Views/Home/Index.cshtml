@@ -3,5 +3,18 @@
 }
 
 <div class ="text-center">
-<h1 class="display-4"> Welcome to QUIZIT</h1>
+    <h1 class="display-4 mb-4"> Welcome to QUIZIT</h1>
+    <p class="lead mb5"> Choose a modus to start with:</p>
+    <div class="d-flex justify-content-center gap-4">
+        <form asp-controller="Quiz" asp-action="CreateQuiz" method="get">
+             <button type="submit" class="btn btn-primary btn-lg px-4 py-2">
+                 Make Quize
+             </button>
+        </form>
+        <form asp-controller="Quiz" asp-action="TakeQuize" method="get">
+            <button type="submit" class="btn btn-success btn-lg px-4 py-2">
+                Take Quiz 
+            </button>
+        </form>
+     </div>
 </div>
