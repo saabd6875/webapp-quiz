@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using QuizMvc.DAL;
 using QuizMvc.Models;
+using QuizMvc.ViewModels;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuizMvc.Controllers
 {
@@ -18,63 +21,140 @@ namespace QuizMvc.Controllers
 
         // ---------------- CREATE QUIZ MODE ----------------
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateQuiz()
         {
-            return View(new Quiz { Questions = new List<Question> { new Question() } });
+            // Returnerer tom ViewModel for visning
+            var vm = new CreateQuizViewModels
+            {
+                Questions = new List<CreateQuizViewModels.QuestionInput>
+                {
+                    new CreateQuizViewModels.QuestionInput()
+                }
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Quiz quiz)
+        public async Task<IActionResult> CreateQuiz(CreateQuizViewModels vm)
         {
-            if (quiz.Questions.Count > 10)
+            // --- VALIDERING ---
+            if (string.IsNullOrWhiteSpace(vm.Title))
+                ModelState.AddModelError("", "Quiz title is required.");
+
+            if (vm.Questions.Count == 0)
+                ModelState.AddModelError("", "A quiz must have at least one question.");
+
+            if (vm.Questions.Count > 10)
                 ModelState.AddModelError("", "A quiz cannot have more than 10 questions.");
 
-            foreach (var question in quiz.Questions)
+            foreach (var q in vm.Questions)
             {
-                if (question.Answers.Count < 2 || question.Answers.Count > 4)
-                    ModelState.AddModelError("", $"Question '{question.Text}' must have between 2 and 4 answers.");
-                if (!question.Answers.Any(a => a.IsCorrect))
-                    ModelState.AddModelError("", $"Question '{question.Text}' must have at least one correct answer.");
+                if (string.IsNullOrWhiteSpace(q.Text))
+                    ModelState.AddModelError("", "Each question must have text.");
+
+                if (string.IsNullOrWhiteSpace(q.CorrectOption))
+                    ModelState.AddModelError("", $"Question '{q.Text}' must have a correct option.");
+
+                // Teller antall gyldige svar
+                var answersCount = new[] { q.OptionA, q.OptionB, q.OptionC, q.OptionD }
+                    .Count(opt => !string.IsNullOrWhiteSpace(opt));
+
+                if (answersCount < 2 || answersCount > 4)
+                    ModelState.AddModelError("", $"Question '{q.Text}' must have between 2 and 4 answers.");
             }
 
             if (!ModelState.IsValid)
-                return View(quiz);
+                return View(vm);
 
-            await _repo.AddAsync(quiz);
-            await _repo.SaveAsync();
+            // --- MAPPING ---
+            var quiz = new Quiz
+            {
+                Title = vm.Title,
+                Description = vm.Description,
+                CategoryId = vm.CategoryId,
+                Questions = vm.Questions.Select(q => new Question
+                {
+                    Text = q.Text,
+                    Answers = new List<Answer>
+                    {
+                        new Answer { Text = q.OptionA, IsCorrect = q.CorrectOption == "A" },
+                        new Answer { Text = q.OptionB, IsCorrect = q.CorrectOption == "B" },
+                        new Answer { Text = q.OptionC, IsCorrect = q.CorrectOption == "C" },
+                        new Answer { Text = q.OptionD, IsCorrect = q.CorrectOption == "D" },
+                    }
+                    .Where(a => !string.IsNullOrWhiteSpace(a.Text))
+                    .ToList()
+                }).ToList()
+            };
 
-            TempData["Message"] = "Quiz successfully created!";
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await _repo.AddAsync(quiz);
+                await _repo.SaveAsync();
+
+                TempData["Message"] = "Quiz successfully created!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating quiz");
+                ModelState.AddModelError("", "An error occurred while saving the quiz.");
+                return View(vm);
+            }
         }
 
         // ---------------- QUIZ TAKING MODE ----------------
         [HttpGet]
-        public async Task<IActionResult> Take(int id)
+        public async Task<IActionResult> TakeQuiz(int id)
         {
             var quiz = await _repo.GetByIdAsync(id);
-            if (quiz == null) return NotFound();
-            return View(quiz);
+            if (quiz == null)
+                return NotFound();
+
+            // Mapper quiz til ViewModel
+            var vm = new TakeQuizViewModels
+            {
+                QuizId = quiz.QuizId,
+                Title = quiz.Title,
+                Question = quiz.Questions.Select(q => new TakeQuizViewModels.QuestionItem
+                {
+                    Id = q.QuestionId,
+                    Text = q.Text,
+                    OptionA = q.Answers.ElementAtOrDefault(0)?.Text ?? "",
+                    OptionB = q.Answers.ElementAtOrDefault(1)?.Text ?? "",
+                    OptionC = q.Answers.ElementAtOrDefault(2)?.Text ?? "",
+                    OptionD = q.Answers.ElementAtOrDefault(3)?.Text ?? ""
+                }).ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit(int id, Dictionary<int, int> selectedAnswers)
+        public async Task<IActionResult> Submit(int id, Dictionary<int, string> userAnswers)
         {
             var quiz = await _repo.GetByIdAsync(id);
-            if (quiz == null) return NotFound();
+            if (quiz == null)
+                return NotFound();
 
             int score = 0;
-            foreach (var q in quiz.Questions)
+
+            foreach (var question in quiz.Questions)
             {
-                if (selectedAnswers.TryGetValue(q.QuestionId, out int selectedAnswerId))
+                if (userAnswers.TryGetValue(question.QuestionId, out string? selectedOption))
                 {
-                    var answer = q.Answers.FirstOrDefault(a => a.AnswerId == selectedAnswerId);
-                    if (answer?.IsCorrect == true)
+                    // Finn korrekt svartekst
+                    var correctAnswer = question.Answers.FirstOrDefault(a => a.IsCorrect)?.Text;
+                    if (selectedOption == correctAnswer)
                         score++;
                 }
             }
 
             ViewBag.Score = score;
             ViewBag.Total = quiz.Questions.Count;
+            ViewBag.QuizTitle = quiz.Title;
+
             return View("Result");
         }
     }
