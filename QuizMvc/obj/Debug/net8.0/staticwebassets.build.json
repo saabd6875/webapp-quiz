@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mbnkFci5UbZIaaGZoLYVf80gKbhVlJMKvkKznbAn+LA=",
+  "Hash": "CUl02NOISWbqkYtNofkujMfEdjSjlBi2G4DSKC4AtbQ=",
   "Source": "QuizMvc",
   "BasePath": "_content/QuizMvc",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "QuizMvc\\wwwroot",
       "Source": "QuizMvc",
-      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\wwwroot\\",
       "BasePath": "_content/QuizMvc",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\bundle\\QuizMvc.styles.css",
+      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\bundle\\QuizMvc.styles.css",
       "SourceId": "QuizMvc",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/QuizMvc",
       "RelativePath": "QuizMvc.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\bundle\\QuizMvc.styles.css"
+      "OriginalItemSpec": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\bundle\\QuizMvc.styles.css"
     },
     {
-      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\QuizMvc.bundle.scp.css",
+      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\QuizMvc.bundle.scp.css",
       "SourceId": "QuizMvc",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/QuizMvc",
       "RelativePath": "QuizMvc.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\QuizMvc.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\QuizMvc.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\wwwroot\\js\\bootstrap.js",
+      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\wwwroot\\js\\bootstrap.js",
       "SourceId": "QuizMvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\wwwroot\\",
       "BasePath": "_content/QuizMvc",
       "RelativePath": "js/bootstrap.js",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.js"
     },
     {
-      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\wwwroot\\js\\jquery.min.js",
+      "Identity": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\wwwroot\\js\\jquery.min.js",
       "SourceId": "QuizMvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\wwwroot\\",
       "BasePath": "_content/QuizMvc",
       "RelativePath": "js/jquery.min.js",
       "AssetKind": "All",

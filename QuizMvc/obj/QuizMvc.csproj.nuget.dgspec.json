@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj": {}
+    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj": {
+    "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj",
+        "projectUniqueName": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
         "projectName": "QuizMvc",
-        "projectPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj",
+        "projectPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
         "packagesPath": "C:\\Users\\wafaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\obj\\",
+        "outputPath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\wafaa\\AppData\\Roaming\\NuGet\\NuGet.Config"

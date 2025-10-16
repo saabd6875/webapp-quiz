@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kX2hP/u1UY0=",
+  "dgSpecHash": "UYWuMy/VDUY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMVC\\QuizMvc.csproj",
+  "projectFilePath": "C:\\Users\\wafaa\\Music\\OneDrive\\Dokumenter\\GitHub\\webapp-quiz\\QuizMvc\\QuizMvc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wafaa\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\wafaa\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
