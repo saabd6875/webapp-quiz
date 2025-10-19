@@ -11,12 +11,16 @@ namespace QuizMvc.Models
 
         [Required(ErrorMessage = "Please add a question")]
         public string Text { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
+
 
         public List<Answer> Answers { get; set; } = new();
 
         public int QuizId { get; set; }
         public Quiz Quiz { get; set; } = null!;
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        
         {
             if (Answers == null || Answers.Count == 0)
             {

@@ -67,6 +67,25 @@ namespace QuizMvc.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
+            string uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
+
+            foreach (var q in vm.Questions)
+            {
+                if(q.Image !=null && q.Image.Length >0)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(q.Image.FileName);
+                    string filePath = Path.Combine(uploadsPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await q.Image.CopyToAsync(stream);
+
+                    }
+                    q.ImageUrl  = "/uploads/" + fileName;
+                }
+            }
+
             // --- MAPPING ---
             var quiz = new Quiz
             {
@@ -76,6 +95,7 @@ namespace QuizMvc.Controllers
                 Questions = vm.Questions.Select(q => new Question
                 {
                     Text = q.Text,
+                    ImageUrl= q.ImageUrl,
                     Answers = new List<Answer>
                     {
                         new Answer { Text = q.OptionA, IsCorrect = q.CorrectOption == "A" },
