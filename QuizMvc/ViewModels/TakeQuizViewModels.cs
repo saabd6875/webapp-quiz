@@ -7,7 +7,7 @@ namespace QuizMvc.ViewModels
         public int QuizId { get; set; }
         public string Title { get; set; } = string.Empty;
         public List<QuestionItem> Question { get; set; } = new();
-        public List<string> UserAnswes { get; set; } = new();
+        public List<string> UserAnswers { get; set; } = new();
 
         public class QuestionItem
         {
