@@ -5,6 +5,9 @@ using QuizMvc.ViewModels;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 namespace QuizMvc.Controllers
 {
@@ -23,7 +26,6 @@ namespace QuizMvc.Controllers
         [HttpGet]
         public IActionResult CreateQuiz()
         {
-            // Returnerer tom ViewModel for visning
             var vm = new CreateQuizViewModels
             {
                 Questions = new List<CreateQuizViewModels.QuestionInput>
@@ -38,9 +40,9 @@ namespace QuizMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateQuiz(CreateQuizViewModels vm)
         {
-            // --- VALIDERING ---
+            // Validation
             if (string.IsNullOrWhiteSpace(vm.Title))
-                ModelState.AddModelError("", "Quiz title is required.");
+                ModelState.AddModelError(nameof(vm.Title), "Quiz title is required.");
 
             if (vm.Questions.Count == 0)
                 ModelState.AddModelError("", "A quiz must have at least one question.");
@@ -48,54 +50,68 @@ namespace QuizMvc.Controllers
             if (vm.Questions.Count > 10)
                 ModelState.AddModelError("", "A quiz cannot have more than 10 questions.");
 
-            foreach (var q in vm.Questions)
+            foreach (var q in vm.Questions.Select((value, i) => new { value, i }))
             {
-                if (string.IsNullOrWhiteSpace(q.Text))
-                    ModelState.AddModelError("", "Each question must have text.");
+                if (string.IsNullOrWhiteSpace(q.value.Text))
+                    ModelState.AddModelError($"Questions[{q.i}].Text", "Each question must have text.");
 
-                if (string.IsNullOrWhiteSpace(q.CorrectOption))
-                    ModelState.AddModelError("", $"Question '{q.Text}' must have a correct option.");
+                if (string.IsNullOrWhiteSpace(q.value.CorrectOption))
+                    ModelState.AddModelError($"Questions[{q.i}].CorrectOption", "Each question must have a correct option.");
 
-                // Teller antall gyldige svar
-                var answersCount = new[] { q.OptionA, q.OptionB, q.OptionC, q.OptionD }
+                var answersCount = new[] { q.value.OptionA, q.value.OptionB, q.value.OptionC, q.value.OptionD }
                     .Count(opt => !string.IsNullOrWhiteSpace(opt));
 
                 if (answersCount < 2 || answersCount > 4)
-                    ModelState.AddModelError("", $"Question '{q.Text}' must have between 2 and 4 answers.");
+                    ModelState.AddModelError($"Questions[{q.i}]", "Each question must have between 2 and 4 answers.");
             }
 
             if (!ModelState.IsValid)
                 return View(vm);
 
+            // --- create Upload Folder
             string uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
             if (!Directory.Exists(uploadsPath))
                 Directory.CreateDirectory(uploadsPath);
 
+            // saving quiz image
+            string? quizImageUrl = null;
+            if (vm.Image != null && vm.Image.Length > 0)
+            {
+                string quizFileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.Image.FileName);
+                string quizFilePath = Path.Combine(uploadsPath, quizFileName);
+                using (var stream = new FileStream(quizFilePath, FileMode.Create))
+                {
+                    await vm.Image.CopyToAsync(stream);
+                }
+                quizImageUrl = "/uploads/" + quizFileName;
+            }
+
+            // saving questions image 
             foreach (var q in vm.Questions)
             {
-                if(q.Image !=null && q.Image.Length >0)
+                if (q.Image != null && q.Image.Length > 0)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(q.Image.FileName);
                     string filePath = Path.Combine(uploadsPath, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await q.Image.CopyToAsync(stream);
-
                     }
-                    q.ImageUrl  = "/uploads/" + fileName;
+                    q.ImageUrl = "/uploads/" + fileName;
                 }
             }
 
-            // --- MAPPING ---
+            // Mapping to modell 
             var quiz = new Quiz
             {
                 Title = vm.Title,
                 Description = vm.Description,
                 CategoryId = vm.CategoryId,
+                ImageUrl = quizImageUrl, 
                 Questions = vm.Questions.Select(q => new Question
                 {
                     Text = q.Text,
-                    ImageUrl= q.ImageUrl,
+                    ImageUrl = q.ImageUrl, 
                     Answers = new List<Answer>
                     {
                         new Answer { Text = q.OptionA, IsCorrect = q.CorrectOption == "A" },
@@ -108,6 +124,7 @@ namespace QuizMvc.Controllers
                 }).ToList()
             };
 
+            // Saving to database
             try
             {
                 await _repo.AddAsync(quiz);
@@ -132,7 +149,6 @@ namespace QuizMvc.Controllers
             if (quiz == null)
                 return NotFound();
 
-            // Mapper quiz til ViewModel
             var vm = new TakeQuizViewModels
             {
                 QuizId = quiz.QuizId,
@@ -164,7 +180,6 @@ namespace QuizMvc.Controllers
             {
                 if (userAnswers.TryGetValue(question.QuestionId, out string? selectedOption))
                 {
-                    // Finn korrekt svartekst
                     var correctAnswer = question.Answers.FirstOrDefault(a => a.IsCorrect)?.Text;
                     if (selectedOption == correctAnswer)
                         score++;

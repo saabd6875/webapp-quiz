@@ -14,6 +14,7 @@ namespace QuizMvc.Models
         public string Title { get; set; } = string.Empty;
         
         public string? Description { get; set; } // Valgfri beskrivelse av quizen
+        public string? ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Category is required")]
         public int CategoryId { get; set; } 
