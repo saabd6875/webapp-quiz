@@ -107,17 +107,17 @@ namespace QuizMvc.Controllers
                 Title = vm.Title,
                 Description = vm.Description,
                 CategoryId = vm.CategoryId,
-                ImageUrl = quizImageUrl, 
+                ImageUrl = quizImageUrl,
                 Questions = vm.Questions.Select(q => new Question
                 {
                     Text = q.Text,
-                    ImageUrl = q.ImageUrl, 
+                    ImageUrl = q.ImageUrl,
                     Answers = new List<Answer>
                     {
-                        new Answer { Text = q.OptionA, IsCorrect = q.CorrectOption == "A" },
-                        new Answer { Text = q.OptionB, IsCorrect = q.CorrectOption == "B" },
-                        new Answer { Text = q.OptionC, IsCorrect = q.CorrectOption == "C" },
-                        new Answer { Text = q.OptionD, IsCorrect = q.CorrectOption == "D" },
+                        new Answer { Text = q.OptionA, IsCorrect = q.CorrectOption == "A", OptionLetter = "A"  },
+                        new Answer { Text = q.OptionB, IsCorrect = q.CorrectOption == "B", OptionLetter = "B"  },
+                        new Answer { Text = q.OptionC, IsCorrect = q.CorrectOption == "C", OptionLetter = "C"  },
+                        new Answer { Text = q.OptionD, IsCorrect = q.CorrectOption == "D", OptionLetter = "D"  },
                     }
                     .Where(a => !string.IsNullOrWhiteSpace(a.Text))
                     .ToList()
@@ -180,9 +180,11 @@ namespace QuizMvc.Controllers
             {
                 if (userAnswers.TryGetValue(question.QuestionId, out string? selectedOption))
                 {
-                    var correctAnswer = question.Answers.FirstOrDefault(a => a.IsCorrect)?.Text;
-                    if (selectedOption == correctAnswer)
+
+                    if (question.Answers.Any(a => a.IsCorrect && a.OptionLetter == selectedOption))
+                    {
                         score++;
+                    }
                 }
             }
 
