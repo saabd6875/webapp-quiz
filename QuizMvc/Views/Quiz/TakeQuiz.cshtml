@@ -1,0 +1,153 @@
+@model IEnumerable<QuizMvc.Models.Quiz>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <title>Take Quiz</title>
+  <link rel="stylesheet" href="styles.css"> <!-- might add style section into separate sheet -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: magenta;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 10px 0;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background-color: white;
+    }
+
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .quiz-box {
+      background-color: violet;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .quiz-box:hover {
+      transform: scale(1.05);
+    }
+
+    .quiz-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .quiz-description {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <h2>Search</h2>
+  
+  <!-- search field -->
+  <input type="text" id="quizSearch" placeholder="Search quiz..." onkeyup="filterQuizzes()" />
+
+  <h2>Categories</h2>
+  <ul>
+    <li><a href="theme-science.html">Science</a></li>
+    <li><a href="theme-history.html">History</a></li>
+    <li><a href="theme-tv.html">TV</a></li>
+    <li><a href="theme-music.html">Music</a></li>
+  </ul>
+</aside>
+
+  <main class="main-content">
+    <h1>All Quizzes</h1>
+    <div class="quiz-grid">
+      <div class="quiz-box" onclick="location.href='quiz1.html'">
+        <div class="quiz-title">Name the Country Flags</div>
+        <div class="quiz-description">How many countries flags do you know?</div>
+      </div>
+
+      <div class="quiz-box" onclick="location.href='exqz.html'">
+        <div class="quiz-title">Random Science</div>
+        <div class="quiz-description">A quiz on various scientific facts.</div>
+      </div>
+
+      <div class="quiz-box" onclick="location.href='quiz3.html'">
+        <div class="quiz-title">World War II</div>
+        <div class="quiz-description">Events of the second world war.</div>
+      </div>
+
+      <div class="quiz-box" onclick="location.href='quiz4.html'">
+        <div class="quiz-title">Disney shows</div>
+        <div class="quiz-description">Guess the show from iconic scenes and quotes.</div>
+      </div>
+
+      <div class="quiz-box" onclick="location.href='quiz5.html'">
+        <div class="quiz-title">2010s Pop Music</div>
+        <div class="quiz-description">Identify artists, lyrics, and classic hits.</div>
+      </div>
+    </div>
+  </main>
+
+  <script> //make a separate js file
+
+  function filterQuizzes() {
+    const input = document.getElementById('quizSearch').value.toLowerCase();
+    const quizBoxes = document.querySelectorAll('.quiz-box');
+
+    quizBoxes.forEach(box => {
+      const title = box.querySelector('.quiz-title').textContent.toLowerCase();
+      const description = box.querySelector('.quiz-description').textContent.toLowerCase();
+
+      //Show or hide box based on match
+      if (title.includes(input) || description.includes(input)) {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
+
