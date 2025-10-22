@@ -1,0 +1,93 @@
+@model QuizMvc.ViewModels.CreateQuizViewModels
+@{
+    ViewData["Title"] = "Create New Quize";
+ }
+ <div class="container">
+ <h2 class ="text-center>Create New Quiz"></h2>
+ <hr />
+
+ <form asp-action="CreateQuize" method="post" enctype="multipart/form data" class="form-horizontal">
+     <div class="form-group">
+         <label class="control-label col-md-2">Title</label>
+         <div class="col-md-10">
+            <input asp-for="Title" class="form-control" placeholder="Enter your Quiz title" />
+            <span asp-validdation-for="Title" class="text-danger"></span>
+            
+        </div>
+     </div>
+
+     <div class="form-group">
+        <label class="control-label col-md-2">Description</label>
+        <div class="col-md-10">
+            <textarea asp-for="Description" class="form-control" rows="5"
+                      placeholder="Describe Your Quiz">
+                      </textarea>
+          
+        </div>
+     </div>
+     <hr />
+     <h4>Questions</h4>
+     <div id="question-container">
+        <div class="panel panel-default question-block">
+            <strong>Questions 1:</strong>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-md-2">Text</label>
+                <div class="col-md-10">
+                    <input name="Questions[0].Text" class="form-comtrol"
+                           placeholder="Type YOur Question "/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2"> Optional:Add photo</label>
+                <div class="col-md-10">
+                    <input name="Questions[0].Image" type="file" class="form-control" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input name="Questions[0].OptionA" class="form-control" placeholder="Option A" />
+                
+                </div>
+                <div class="col-md-6">
+                    <input name="Questions[0].OptionB" class="form-control" placeholder="Option B" />
+                
+                </div>
+                <div class="col-md-6">
+                    <input name="Questions[0].OptionC" class="form-control" placeholder="Option C" />
+                
+                </div>
+                <div class="col-md-6">
+                    <input name="Questions[0].OptionD" class="form-control" placeholder="Option D" />
+                
+                </div>  
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2"> Correct Option</label>
+                <div class="col-md-10">
+                    <select name="Questions[0].CorrectOption" class="form-control">
+                        <option value="">Select correct answer</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+     </div>
+     <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" id="add-question" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> Add a new Question
+                </button>
+                <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"></span> Create Quiz
+                </button>
+            </div>
+        </div> 
+    </form>
+ </div>
+ 
