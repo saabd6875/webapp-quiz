@@ -16,35 +16,35 @@
     var question = Model.Question[i];
 
     <div class="panel panel-default">
-      <div class="panel heading">
+      <div class="panel-heading">
         <strong>Question @(i + 1):</strong> @question.Text
       </div>
-      <div class="panel body">
+      <div class="panel-body">
 
         <div class="radio">
         <label>
-          <input type="radio" name="userAnswers[@question.Id]" value=@question.OptionA" />
+          <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionA" />
           @question.OptionA
         </label>
         </div>
 
         <div class="radio">
         <label>
-          <input type="radio" name="userAnswers[@question.Id]" value=@question.OptionB" />
+          <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionB" />
           @question.OptionB
         </label>
         </div>
 
         <div class="radio">
         <label>
-          <input type="radio" name="userAnswers[@question.Id]" value=@question.OptionC" />
+          <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionC" />
           @question.OptionC
         </label>
         </div>
 
         <div class="radio">
         <label>
-          <input type="radio" name="userAnswers[@question.Id]" value=@question.OptionD" />
+          <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionD" />
           @question.OptionD
         </label>
       </div>
@@ -54,5 +54,6 @@
   </div>
     
   }
-  <button type="submit" class="btn btn success">Submit Quiz</button>
+
+  <button type="submit" class="btn-btn success">Submit Quiz</button>
 }
