@@ -7,7 +7,7 @@ namespace QuizMvc.Models
         [Key]
         public int CategoryId { get; set; } // Unik ID for kategorien
         
-        [Required(ErrorMessage = "CAtegory name is required")]
+        [Required(ErrorMessage = "Category name is required")]
         public string Name { get; set; } = string.Empty; // Navnet på kategorien
     }
 }
