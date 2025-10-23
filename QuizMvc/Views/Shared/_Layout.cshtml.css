@@ -1,0 +1,26 @@
+body {
+    background-color: #f8f8f8;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.btn-block {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.no-quizzes {
+    color: #aaa;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 80px;
+    font-style: italic;
+}
