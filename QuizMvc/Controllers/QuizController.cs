@@ -22,7 +22,7 @@ namespace QuizMvc.Controllers
             _logger = logger;
         }
 
-        // ---------------- CREATE QUIZ MODE ----------------
+        // ---------------- CREATE QUIZ MODE -----------------
         [HttpGet]
         public IActionResult CreateQuiz()
         {
