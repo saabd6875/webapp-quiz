@@ -218,7 +218,7 @@ namespace QuizMvc.Controllers
                 QuizId = quiz.QuizId,
                 Title = quiz.Title,
                 Description = quiz.Description,
-                Image = quiz.ImageUrl
+                ImageUrl = quiz.ImageUrl
             };
 
             return View(vm);

@@ -22,8 +22,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Quiz/quiz.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxxdWl6LmNzaHRtbA==
+[C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Quiz/CreateQuiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxDcmVhdGVRdWl6LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Quiz/TakeQuiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxUYWtlUXVpei5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Quiz/ViewOneQuiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxWaWV3T25lUXVpei5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Quiz/ViewQuiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxWaWV3UXVpei5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/saida/WebApplikasjoner/webapp-quiz/QuizMvc/Views/Shared/_Layout.cshtml]
