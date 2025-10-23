@@ -10,15 +10,6 @@ namespace QuizMvc.Controllers
             return View();
         }
 
-        public IActionResult MakeQuiz() 
-        {
-            return RedirectToAction("CreateQuiz", "Quiz");
-        }
-
-        public IActionResult TakeQuiz()
-        {
-            return RedirectToAction("TakeQuiz", "Quiz");
-        }
     }
 }
 
