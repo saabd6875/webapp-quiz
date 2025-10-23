@@ -11,7 +11,7 @@ namespace QuizMvc.Models
 
         [Required(ErrorMessage = "Please add a question")]
         public string Text { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; }
+        public string? ImageUrl { get; set; } 
 
 
         public List<Answer> Answers { get; set; } = new();

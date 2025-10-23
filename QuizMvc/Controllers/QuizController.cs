@@ -23,7 +23,7 @@ namespace QuizMvc.Controllers
         }
 
         // ---------------- CREATE QUIZ MODE -----------------
-        [HttpGet]
+        [HttpGet] 
         public IActionResult CreateQuiz()
         {
             var vm = new CreateQuizViewModels

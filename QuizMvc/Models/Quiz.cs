@@ -11,7 +11,7 @@ namespace QuizMvc.Models
         public int QuizId { get; set; } 
 
         [Required(ErrorMessage = "Title is required")]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty; 
         
         public string? Description { get; set; } // Valgfri beskrivelse av quizen
         public string? ImageUrl { get; set; }
