@@ -10,7 +10,7 @@ namespace QuizMvc.ViewModels
         public IFormFile? Image { get; set; }
         public List<QuestionInput> Questions { get; set; } = new();
 
-        public class QuestionInput 
+        public class QuestionInput   
         {
             public string Text { get; set; } = string.Empty;
             public string OptionA { get; set; } = string.Empty;
