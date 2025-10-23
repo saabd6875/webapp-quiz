@@ -1,6 +1,9 @@
-public class QuizListViewModel
+namespace QuizMvc.ViewModels
 {
-    public int QuizId { get; set; }
-    public string Title { get; set; } = string.Empty;
-    public string? Image { get; set; }
+    public class ViewQuizzesViewModel
+    {
+        public int QuizId { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
+    }
 }

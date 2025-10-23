@@ -145,7 +145,7 @@ namespace QuizMvc.Controllers
         [HttpGet]
         public async Task<IActionResult> TakeQuiz(int id)
         {
-            var quiz = await _repo.GetByIdAsync(id);
+            var quiz = await _repo.GetQuizByIdAsync(id);
             if (quiz == null)
                 return NotFound();
 
@@ -194,7 +194,7 @@ namespace QuizMvc.Controllers
 
             return View("Result");
         }
-                public async Task<IActionResult> ViewQuizzes()
+        public async Task<IActionResult> ViewQuizzes()
         {
             var quizzes = await _repo.GetAllQuizzesAsync();
 
@@ -202,7 +202,7 @@ namespace QuizMvc.Controllers
             {
                 QuizId = q.QuizId,
                 Title = q.Title,
-                Image = q.Image
+                ImageUrl = q.ImageUrl
             }).ToList();
 
             return View(vm);
@@ -218,7 +218,7 @@ namespace QuizMvc.Controllers
                 QuizId = quiz.QuizId,
                 Title = quiz.Title,
                 Description = quiz.Description,
-                Image = quiz.Image
+                Image = quiz.ImageUrl
             };
 
             return View(vm);
