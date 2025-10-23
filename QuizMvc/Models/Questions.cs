@@ -5,23 +5,26 @@ using System.Linq;
 
 namespace QuizMvc.Models
 {
-    public class Question : IValidatableObject
+    //represents one quiz question
+    public class Question : IValidatableObject //validation logic
     {
-        public int QuestionId { get; set; }
+        public int QuestionId { get; set; } //primary key for question
 
         [Required(ErrorMessage = "Please add a question")]
-        public string Text { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; } 
+        public string Text { get; set; } = string.Empty; //question text
+        public string? ImageUrl { get; set; }  //optional Url for image connected to question
+
+        //answers connected to the question
+        public List<Answer> Answers { get; set; } = new(); 
+
+        public int QuizId { get; set; } //foreign key pointing to the quiz
+        public Quiz Quiz { get; set; } = null!; //navigation property, quiz object
 
 
-        public List<Answer> Answers { get; set; } = new();
-
-        public int QuizId { get; set; }
-        public Quiz Quiz { get; set; } = null!;
-
+        //validation logic for question class
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        
-        {
+
+        {   //various validation errors 
             if (Answers == null || Answers.Count == 0)
             {
                 yield return new ValidationResult("The question must have at least 2 answers.",
