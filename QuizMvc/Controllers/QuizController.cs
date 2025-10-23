@@ -170,7 +170,7 @@ namespace QuizMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit(int id, Dictionary<int, string> userAnswers)
         {
-            var quiz = await _repo.GetByIdAsync(id);
+            var quiz = await _repo.GetQuizByIdAsync(id);
             if (quiz == null)
                 return NotFound();
 
@@ -194,5 +194,36 @@ namespace QuizMvc.Controllers
 
             return View("Result");
         }
+                public async Task<IActionResult> ViewQuizzes()
+        {
+            var quizzes = await _repo.GetAllQuizzesAsync();
+
+            var vm = quizzes.Select(q => new ViewQuizzesViewModel
+            {
+                QuizId = q.QuizId,
+                Title = q.Title,
+                Image = q.Image
+            }).ToList();
+
+            return View(vm);
+        }
+
+        public async Task<IActionResult> ViewOneQuiz(int id)
+        {
+            var quiz = await _repo.GetQuizByIdAsync(id);
+            if (quiz == null) return NotFound();
+
+            var vm = new ViewOneQuizViewModel
+            {
+                QuizId = quiz.QuizId,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                Image = quiz.Image
+            };
+
+            return View(vm);
+        }
+
     }
+                
 }

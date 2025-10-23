@@ -2,19 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class ="text-center">
-    <h1 class="display-4 mb-4"> Welcome to QUIZIT</h1>
-    <p class="lead mb5"> Choose a modus to start with:</p>
-    <div class="d-flex justify-content-center gap-4">
-        <form asp-controller="Quiz" asp-action="CreateQuiz" method="get">
-             <button type="submit" class="btn btn-primary btn-lg px-4 py-2">
-                 Make Quize
-             </button>
-        </form>
-        <form asp-controller="Quiz" asp-action="TakeQuize" method="get">
-            <button type="submit" class="btn btn-success btn-lg px-4 py-2">
-                Take Quiz 
-            </button>
-        </form>
-     </div>
+<!-- this displays two buttons at the homepage to choose what mode you want to continue as-->
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Welcome to QUIZIT</h1>
+    <p class="lead">Choose a mode to get started</p>
+
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a asp-controller="Quiz" asp-action="ViewQuizzes" class="btn btn-success btn-lg btn-block" style="height: 100px; padding-top: 30px;">
+                        View Available Quizzes
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a asp-controller="Quiz" asp-action="CreateQuiz" class="btn btn-primary btn-lg btn-block" style="height: 100px; padding-top: 30px;">
+                        Create Your Own Quiz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

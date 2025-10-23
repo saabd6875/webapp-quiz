@@ -5,5 +5,36 @@
     <meta name="viewport" content="width=device-width">
     <title>@ViewData["Title"] - QuizIT</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand / Logo -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">QUIZIT</a>
+                </div>
+
+                <!-- Right-side navigation -->
+                <div class="collapse navbar-collapse" id="navbar-main">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a asp-controller="Quiz" asp-action="CreateQuiz">Make Quiz</a></li>
+                        <li><a asp-controller="Quiz" asp-action="TakeQuiz">Take Quiz</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="padding-top: 80px;">
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -4,7 +4,6 @@ using QuizMvc.Models;
 namespace QuizMvc.DAL
 {
     public class QuizRepository : IQuizRepository
-
     {
         private readonly QuizDbContext _db;
 
@@ -13,16 +12,19 @@ namespace QuizMvc.DAL
             _db = db;
         }
 
-        public async Task<List<Quiz>> GetAllAsync()
+        // List all quizzes (for ViewQuizzes.cshtml)
+        public async Task<List<Quiz>> GetAllQuizzesAsync()
         {
-            return await _db.Quizzes.Include(q => q.Category).ToListAsync();
+            return await _db.Quizzes
+                .Include(q => q.Category)
+                .ToListAsync();
         }
 
-        public async Task<Quiz?> GetByIdAsync(int id)
+        // Get one quiz with questions (for ViewOneQuiz + PlayQuiz)
+        public async Task<Quiz?> GetQuizByIdAsync(int id)
         {
             return await _db.Quizzes
                 .Include(q => q.Questions)
-                .ThenInclude(a => a.Answers)
                 .FirstOrDefaultAsync(q => q.QuizId == id);
         }
 
