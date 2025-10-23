@@ -18,7 +18,6 @@ namespace QuizMvc.ViewModels
             public string OptionC { get; set; } = string.Empty;
             public string OptionD { get; set; } = string.Empty;
             public string CorrectOption { get; set; } = string.Empty;
-
             public IFormFile? Image { get; set; }
             public string? ImageUrl { get; set; }
 
