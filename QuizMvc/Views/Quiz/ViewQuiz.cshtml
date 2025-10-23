@@ -1,4 +1,5 @@
-@model List<Quizzes>
+@model List<QuizMvc.ViewModels.ViewQuizzesViewModel>
+
 
 @{
     ViewData["Title"] = "Available Quizzes";
@@ -20,17 +21,16 @@ else
         {
             <div class="col-sm-4">
                 <div class="panel panel-default">
-                    @if (!string.IsNullOrEmpty(quiz.Image))
+                    @if (!string.IsNullOrEmpty(quiz.ImageUrl))
                     {
                         <div class="panel-heading" style="padding:0;">
-                            <img src="@quiz.Image" class="img-responsive" style="width:100%; height:180px; object-fit:cover;" />
+                            <img src="@quiz.ImageUrl" class="img-responsive" style="width:100%; height:180px; object-fit:cover;" />
                         </div>
                     }
                     <div class="panel-body">
                         <h4>@quiz.Title</h4>
-                        <p class="text-muted">@quiz.Description</p>
-                        <a asp-controller="Quiz" asp-action="Details" asp-route-id="@quiz.QuizId" class="btn btn-primary btn-block">
-                            Play Quiz
+                        <a asp-controller="Quiz" asp-action="ViewOneQuiz" asp-route-id="@quiz.QuizId" class="btn btn-primary btn-block">
+                            View Quiz
                         </a>
                     </div>
                 </div>

@@ -1,0 +1,28 @@
+@model QuizMvc.ViewModels.ViewOneQuizViewModel
+
+@{
+    ViewData["Title"] = "Quiz Details";
+}
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+        <h2>@Model.Title</h2>
+        <hr />
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-responsive center-block" 
+                 style="max-height:300px; object-fit:cover; margin-bottom:20px;" />
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Description))
+        {
+            <p class="lead">@Model.Description</p>
+        }
+
+        <a asp-controller="Quiz" asp-action="PlayQuiz" asp-route-id="@Model.QuizId" 
+           class="btn btn-success btn-lg" style="margin-top:20px;">
+            Play Quiz
+        </a>
+    </div>
+</div>
