@@ -2,50 +2,55 @@
 
 
 @{
-  ViewBag.Title = "Take Quiz";
+  ViewBag.Title = "Take Quiz"; //set page title
 
 }
 
-<h2>@Model.Title</h2>
+<h2>@Model.Title</h2> <!-- display title-->
 
-@using (Html.BeginForm("Submit", "Quiz", FormMethod.Post)){
+@using (Html.BeginForm("Submit", "Quiz", FormMethod.Post)){ //form posts to Submit action in controller
 
-  @Html.HiddenFor(m => m.QuizId)
-
-  @for (int i = 0; i < Model.Question.Count; i++){
-    var question = Model.Question[i];
+  @Html.HiddenFor(m => m.QuizId) <!-- input to keep QuizId in the form-->
+ 
+  @for (int i = 0; i < Model.Question.Count; i++){ //loop through all questions
+    var question = Model.Question[i]; 
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <strong>Question @(i + 1):</strong> @question.Text
+        <strong>Question @(i + 1):</strong> @question.Text <!-- display text & question number-->
       </div>
       <div class="panel-body">
 
+
         <div class="radio">
         <label>
+        <!-- radio button option A -->
           <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionA" />
-          @question.OptionA
+          @question.OptionA <!-- display text for option A-->
         </label>
         </div>
 
         <div class="radio">
         <label>
+        <!-- radio button option B -->
           <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionB" />
-          @question.OptionB
+          @question.OptionB <!-- display text for option B-->
         </label>
         </div>
 
         <div class="radio">
         <label>
+        <!-- radio button option C-->
           <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionC" />
-          @question.OptionC
+          @question.OptionC <!-- display text for option C-->
         </label>
         </div>
 
         <div class="radio">
         <label>
+        <!-- radio button option D -->
           <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionD" />
-          @question.OptionD
+          @question.OptionD <!-- display text for option D-->
         </label>
       </div>
        
@@ -53,7 +58,7 @@
     
   </div>
     
-  }
+  } <!--end loop-->
 
-  <button type="submit" class="btn-btn success">Submit Quiz</button>
+  <button type="submit" class="btn-btn success">Submit Quiz</button> <!--submit button to post answers-->
 }
