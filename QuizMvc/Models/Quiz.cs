@@ -13,17 +13,17 @@ namespace QuizMvc.Models
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; } = string.Empty; 
         
-        public string? Description { get; set; } // Valgfri beskrivelse av quizen
+        public string? Description { get; set; } //optional description of the text
         public string? ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Category is required")]
         public int CategoryId { get; set; } 
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; } = null!; // Navigasjonsegenskap
+        public Category Category { get; set; } = null!; //navigation property
     
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        public List<Question> Questions { get; set; } = new(); // Liste over spørsmål i quizen
+        public List<Question> Questions { get; set; } = new(); //list of questions in quiz
     }
 
 }
