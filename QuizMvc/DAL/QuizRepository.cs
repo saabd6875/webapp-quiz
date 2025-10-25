@@ -16,7 +16,7 @@ namespace QuizMvc.DAL
         public async Task<List<Quiz>> GetAllQuizzesAsync()
         {
             return await _db.Quizzes
-                .Include(q => q.Category)
+               // .Include(q => q.Category)
                 .ToListAsync();
         }
 
@@ -25,6 +25,7 @@ namespace QuizMvc.DAL
         {
             return await _db.Quizzes
                 .Include(q => q.Questions)
+                    .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(q => q.QuizId == id);
         }
 

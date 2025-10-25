@@ -9,10 +9,10 @@ namespace QuizMvc.DAL
         public QuizDbContext(DbContextOptions<QuizDbContext> options)
             : base(options) { }
 
-        public DbSet<Category> Categories { get; set; }
+        //public DbSet<Category> Categories { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answer { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

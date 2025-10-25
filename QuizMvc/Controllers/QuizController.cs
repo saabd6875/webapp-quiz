@@ -106,7 +106,7 @@ namespace QuizMvc.Controllers
             {
                 Title = vm.Title,
                 Description = vm.Description,
-                CategoryId = vm.CategoryId,
+                //CategoryId = vm.CategoryId,
                 ImageUrl = quizImageUrl,
                 Questions = vm.Questions.Select(q => new Question
                 {
