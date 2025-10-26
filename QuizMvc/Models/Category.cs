@@ -8,6 +8,6 @@ namespace QuizMvc.Models
         public int CategoryId { get; set; } // unique ID for the category
         
         [Required(ErrorMessage = "Category name is required")]
-        public string Name { get; set; } = string.Empty; // category namee
+        public string Name { get; set; } = string.Empty; // category name
     }
 } 
