@@ -187,18 +187,12 @@ namespace QuizMvc.Controllers
             int score = 0;
             foreach (var q in model.Question)
             {
-                var dbQuestion = quiz.Questions
-                    .FirstOrDefault(quest => quest.QuestionId == q.Id);
-                if (dbQuestion == null) continue;
+                var correctAnswer = quiz.Questions
+                    .FirstOrDefault(quest => quest.QuestionId == q.Id)?
+                    .Answers.FirstOrDefault(a => a.IsCorrect)?.OptionLetter;
 
-                var correctAnswer = dbQuestion.Answers
-                    .FirstOrDefault(a => a.IsCorrect)?.OptionLetter?.Trim().ToUpper();
-
-                if (!string.IsNullOrEmpty(q.SelectedAnswer) 
-                    && string.Equals(correctAnswer, q.SelectedAnswer.Trim().ToUpper()))
-                {
+                if (correctAnswer == q.SelectedAnswer)
                     score++;
-                }
             }
 
             var resultVm = new SubmitQuizViewModel
