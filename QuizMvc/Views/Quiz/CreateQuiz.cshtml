@@ -74,7 +74,7 @@
                             <input name="Questions[0].OptionD" class="form-control" placeholder="Option D" />
                         </div>
                     </div>
-
+                    <!-- Questions options A-D -->
                     <div class="form-group">
                         <label class="control-label col-md-2">Correct Option</label>
                         <div class="col-md-10">
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <!-- Legg til spørsmål + submit -->
+        <!-- buttons for adding more questions + submit -->
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button type="button" id="add-question" class="btn btn-default">
@@ -111,7 +111,7 @@
     <script>
         $(function () {
             var maxQuestions = 10;
- 
+            //handle dynamic addition of new question blocks 
             $('#add-question').click(function () {
                 var container = $('#questions-container');
                 var index = container.children('.question-block').length;
@@ -120,7 +120,7 @@
                     alert("You can only add up to 10 questions.");
                     return;
                 }
-
+                //build new question dynamically 
                 var newHtml =
                     '<div class="panel panel-default question-block">' +
                         '<div class="panel-heading"><strong>Question ' + (index + 1) + '</strong></div>' +
@@ -157,7 +157,7 @@
                             '</div>' +
                         '</div>' +
                     '</div>';
-
+                 //appending the new question to the conatiner 
                 container.append(newHtml);
             });
         });
