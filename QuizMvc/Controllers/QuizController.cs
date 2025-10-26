@@ -191,7 +191,7 @@ namespace QuizMvc.Controllers
                     .FirstOrDefault(quest => quest.QuestionId == q.Id)?
                     .Answers.FirstOrDefault(a => a.IsCorrect)?.OptionLetter;
 
-                if (correctAnswer == q.SelectedAnswer)
+                if (string.Equals(correctAnswer?.Trim(), q.SelectedAnswer?.Trim(), StringComparison.OrdinalIgnoreCase))
                     score++;
             }
 
