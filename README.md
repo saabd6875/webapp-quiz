@@ -14,8 +14,8 @@ It allows users to create their own quizzes, add questions and options, upload i
 ## How to Run
 - open the project folder in VScode
 - Open a terminal in the project folder.
-- Build the project: dotnet build webapp-qui.snl
-- then write dotnet run 
+- Build: dotnet build webapp-qui.snl
+- Run: dotnet run --project QuizMvc\QuizMvc.csproj
 - Open the link shown in the terminal (usually starts with https://localhost:...)
 - You can now use the web application to create, take, update, and view quizzes.
 
