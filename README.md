@@ -19,4 +19,4 @@ It allows users to create their own quizzes, add questions and options, upload i
 - Open the link shown in the terminal (usually starts with https://localhost:...)
 - You can now use the web application to create, take, update, and view quizzes.
 
-In terms of sources, we used W3schools and module notes throughout the project development. 
+In terms of sources, we used W3schools, module notes throughout the project development, and https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-8.0&tabs=visual-studio
