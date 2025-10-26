@@ -1,55 +1,68 @@
 @model QuizMvc.ViewModels.TakeQuizViewModels
 
 @{
+    //page title for browser
     ViewBag.Title = "Take Quiz";
 }
 
+<!--quiz title-->
 <h2>@Model.Title</h2>
 
-@using (Html.BeginForm("Submit", "Quiz", FormMethod.Post))
-{
-    @Html.HiddenFor(m => m.QuizId)
+<!--form posts back to Quizcontroller Submit action-->
+<form asp-action="Submit" asp-controller="Quiz" method="post">
+    <!--hidden field for quiz-id -->
+    <input asp-for="QuizId" type="hidden"/>
+ 
 
+    <!--looping through all questions-->
     @for (int i = 0; i < Model.Question.Count; i++)
     {
         var question = Model.Question[i];
 
         <div class="panel panel-default">
             <div class="panel-heading">
+            <!--displays question number & text-->
                 <strong>Question @(i + 1):</strong> @question.Text
             </div>
 
             <div class="panel-body">
+            <!--hidden field for controller-->
+            <input type="hidden" name="Question[@i].Id" value="@question.Id"/>
+
+            <!--one possible answer in each section-->
                 <div class="radio">
                     <label>
-                        <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionA" />
+                        <input type="radio" name="Question[@i].SelectedAnswer" value="A" />
                         @question.OptionA
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionB" />
+                        <input type="radio" name="Question[@i].SelectedAnswer" value="B" />
                         @question.OptionB
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionC" />
+                        <input type="radio" name="Question[@i].SelectedAnswer" value="C" />
                         @question.OptionC
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="userAnswers[@question.Id]" value="@question.OptionD" />
+                        <input type="radio" name="Question[@i].SelectedAnswer" value="D" />
                         @question.OptionD
                     </label>
                 </div>
             </div>
         </div>
     }
-
+    
+    <!--submit button, sends selected answers to controller-->
     <button type="submit" class="btn btn-success">Submit Quiz</button>
-}
+    </form>
+</div>
+
