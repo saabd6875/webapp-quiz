@@ -8,5 +8,8 @@ namespace QuizMvc.DAL
         Task<Quiz?> GetQuizByIdAsync(int id); // for viewing details on one quiz
         Task AddAsync(Quiz quiz);
         Task SaveAsync();
+
+        Task UpdateAsync(Quiz quiz);
+        Task DeleteAsync(int id);
     }
 }

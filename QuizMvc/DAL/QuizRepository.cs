@@ -38,5 +38,21 @@ namespace QuizMvc.DAL
         {
             await _db.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(Quiz quiz)
+        {
+            _db.Quizzes.Update(quiz);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var quiz = await GetQuizByIdAsync(id);
+            if (quiz != null)
+            {
+                _db.Quizzes.Remove(quiz);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }

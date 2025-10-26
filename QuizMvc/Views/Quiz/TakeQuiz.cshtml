@@ -1,64 +1,47 @@
-@model  QuizMvc.ViewModels.TakeQuizViewModels 
-
-
+@model QuizMvc.ViewModels.TakeQuizViewModels
 @{
-  ViewBag.Title = "Take Quiz"; //set page title
-
+    ViewBag.Title = Model.Title;
 }
 
-<h2>@Model.Title</h2> <!-- display title-->
+<div class="container" style="margin-top: 40px;">
+    <h2>@Model.Title</h2>
 
-@using (Html.BeginForm("Submit", "Quiz", FormMethod.Post)){ //form posts to Submit action in controller
+    <form asp-action="Submit" asp-controller="Quiz" method="post">
+        <!-- Hidden quiz ID -->
+        <input asp-for="QuizId" type="hidden" />
 
-  @Html.HiddenFor(m => m.QuizId) <!-- input to keep QuizId in the form-->
- 
-  @for (int i = 0; i < Model.Question.Count; i++){ //loop through all questions
-    var question = Model.Question[i]; 
+        @for (int i = 0; i < Model.Question.Count; i++)
+        {
+            var question = Model.Question[i];
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Question @(i + 1):</strong> @question.Text
+                </div>
+                <div class="panel-body">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="Question[@i].SelectedAnswer" value="A" /> @question.OptionA
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="Question[@i].SelectedAnswer" value="B" /> @question.OptionB
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="Question[@i].SelectedAnswer" value="C" /> @question.OptionC
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="Question[@i].SelectedAnswer" value="D" /> @question.OptionD
+                        </label>
+                    </div>
+                </div>
+            </div>
+        }
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Question @(i + 1):</strong> @question.Text <!-- display text & question number-->
-      </div>
-      <div class="panel-body">
-
-
-        <div class="radio">
-          <label>
-          <!-- radio button option A -->
-            <input type="radio" name="userAnswers[@question.Id]" value="A" />
-            @question.OptionA <!-- display text for option A-->
-          </label>
-        </div>
-
-        <div class="radio">
-          <label>
-          <!-- radio button option B -->
-            <input type="radio" name="userAnswers[@question.Id]" value="B" />
-            @question.OptionB <!-- display text for option B-->
-          </label>
-        </div>
-
-        <div class="radio">
-          <label>
-          <!-- radio button option C-->
-            <input type="radio" name="userAnswers[@question.Id]" value="C" />
-            @question.OptionC <!-- display text for option C-->
-          </label>
-        </div>
-
-        <div class="radio">
-          <label>
-          <!-- radio button option D -->
-            <input type="radio" name="userAnswers[@question.Id]" value="D" />
-            @question.OptionD <!-- display text for option D-->
-          </label>
-        </div>
-       
-      </div>
-    
-    </div>
-    
-  } <!--end loop-->
-
-  <button type="submit" class="btn btn-success">Submit Quiz</button> <!--submit button to post answers-->
-}
+        <button type="submit" class="btn btn-success btn-lg">Submit Quiz</button>
+    </form>
+</div>

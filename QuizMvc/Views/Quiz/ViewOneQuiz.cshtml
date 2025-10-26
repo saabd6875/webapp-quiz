@@ -19,10 +19,27 @@
         {
             <p class="lead">@Model.Description</p>
         }
+        <div style="margin-top:20px;">
+            <!-- Play Quiz -->
+            <a asp-controller="Quiz" asp-action="TakeQuiz" asp-route-id="@Model.QuizId" 
+               class="btn btn-success btn-lg">
+                Play Quiz
+            </a>
 
-        <a asp-controller="Quiz" asp-action="TakeQuiz" asp-route-id="@Model.QuizId" 
-           class="btn btn-success btn-lg" style="margin-top:20px;">
-            Play Quiz
-        </a>
+            <!-- Update Quiz -->
+            <a asp-controller="Quiz" asp-action="UpdateQuiz" asp-route-id="@Model.QuizId"
+               class="btn btn-primary btn-lg" style="margin-left:10px;">
+                Update Quiz
+            </a>
+
+            <!-- Delete Quiz -->
+            <form asp-controller="Quiz" asp-action="DeleteQuiz" asp-route-id="@Model.QuizId" 
+                  method="post" style="display:inline-block; margin-left:10px;" 
+                  onsubmit="return confirm('Are you sure you want to delete this quiz?');">
+                <button type="submit" class="btn btn-danger btn-lg">
+                    Delete Quiz
+                </button>
+            </form>
+        </div>
     </div>
 </div>

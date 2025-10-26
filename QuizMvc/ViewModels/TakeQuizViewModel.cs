@@ -7,7 +7,7 @@ namespace QuizMvc.ViewModels
         public int QuizId { get; set; }
         public string Title { get; set; } = string.Empty;
         public List<QuestionItem> Question { get; set; } = new();
-        public List<string> UserAnswers { get; set; } = new();
+        
 
         public class QuestionItem
         {
@@ -18,6 +18,7 @@ namespace QuizMvc.ViewModels
             public string OptionC { get; set; } = string.Empty;
             public string OptionD { get; set; } = string.Empty; 
             
+            public string SelectedAnswer { get; set; } = "";
         }
     
     }

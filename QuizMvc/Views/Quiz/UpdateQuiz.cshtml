@@ -1,0 +1,47 @@
+@model QuizMvc.ViewModels.CreateQuizViewModels
+
+@{
+    ViewBag.Title = "Update Quiz";
+}
+
+<h2>Update Quiz</h2>
+
+<form asp-action="UpdateQuiz" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="QuizId" />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        var question = Model.Questions[i];
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Question @(i+1)
+            </div>
+            <div class="panel-body">
+                <input asp-for="Questions[@i].Text" class="form-control" placeholder="Question text" />
+
+                <input asp-for="Questions[@i].OptionA" class="form-control" placeholder="Option A" />
+                <input asp-for="Questions[@i].OptionB" class="form-control" placeholder="Option B" />
+                <input asp-for="Questions[@i].OptionC" class="form-control" placeholder="Option C" />
+                <input asp-for="Questions[@i].OptionD" class="form-control" placeholder="Option D" />
+
+                <select asp-for="Questions[@i].CorrectOption" class="form-control">
+                    <option value="">Select Correct Option</option>
+                    <option value="A" selected="@("A" == question.CorrectOption)">A</option>
+                    <option value="B" selected="@("B" == question.CorrectOption)">B</option>
+                    <option value="C" selected="@("C" == question.CorrectOption)">C</option>
+                    <option value="D" selected="@("D" == question.CorrectOption)">D</option>
+                </select>
+            </div>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Update Quiz</button>
+</form>

@@ -4,6 +4,7 @@ namespace QuizMvc.ViewModels
 {
     public class CreateQuizViewModels
     {
+        public int QuizId { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
         //public int CategoryId { get; set; }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace QuizMvc.Controllers
 {
@@ -168,32 +169,44 @@ namespace QuizMvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit(int id, Dictionary<int, string> userAnswers)
+        public async Task<IActionResult> Submit(TakeQuizViewModels model)
         {
-            var quiz = await _repo.GetQuizByIdAsync(id);
-            if (quiz == null)
-                return NotFound();
-
-            int score = 0;
-
-            foreach (var question in quiz.Questions)
+            if (!ModelState.IsValid)
             {
-                if (userAnswers.TryGetValue(question.QuestionId, out string? selectedOption))
-                {
-
-                    if (question.Answers.Any(a => a.IsCorrect && a.OptionLetter == selectedOption))
-                    {
-                        score++;
-                    }
-                }
+                _logger.LogWarning("Invalid quiz submission for QuizId {QuizId}", model.QuizId);
+                return View("TakeQuiz", model); // return back with validation messages
             }
 
-            ViewBag.Score = score;
-            ViewBag.Total = quiz.Questions.Count;
-            ViewBag.QuizTitle = quiz.Title;
+            var quiz = await _repo.GetQuizByIdAsync(model.QuizId);
+            if (quiz == null)
+            {
+                _logger.LogError("Quiz not found: {QuizId}", model.QuizId);
+                return NotFound();
+            }
 
-            return View("Result");
+            int score = 0;
+            foreach (var q in model.Question)
+            {
+                var correctAnswer = quiz.Questions
+                    .FirstOrDefault(quest => quest.QuestionId == q.Id)?
+                    .Answers.FirstOrDefault(a => a.IsCorrect)?.OptionLetter;
+
+                if (correctAnswer == q.SelectedAnswer)
+                    score++;
+            }
+
+            var resultVm = new SubmitQuizViewModel
+            {
+                QuizTitle = quiz.Title,
+                Score = score,
+                TotalQuestions = quiz.Questions.Count
+            };
+
+            return View("Submit", resultVm);
         }
+
+
+         // ---------------- ACTIONS ON QUIZZES ----------------
         public async Task<IActionResult> ViewQuizzes()
         {
             var quizzes = await _repo.GetAllQuizzesAsync();
@@ -223,6 +236,124 @@ namespace QuizMvc.Controllers
 
             return View(vm);
         }
+
+        // GET: Show the edit form
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateQuiz(int id)
+        {
+            var quiz = await _repo.GetQuizByIdAsync(id);
+            if (quiz == null) return NotFound();
+
+            var vm = new CreateQuizViewModels
+            {
+                QuizId = quiz.QuizId,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                Questions = quiz.Questions.Select(q => new CreateQuizViewModels.QuestionInput
+                {
+                    Text = q.Text,
+                    OptionA = q.Answers.ElementAtOrDefault(0)?.Text ?? "",
+                    OptionB = q.Answers.ElementAtOrDefault(1)?.Text ?? "",
+                    OptionC = q.Answers.ElementAtOrDefault(2)?.Text ?? "",
+                    OptionD = q.Answers.ElementAtOrDefault(3)?.Text ?? "",
+                    CorrectOption = q.Answers.FirstOrDefault(a => a.IsCorrect)?.OptionLetter ?? ""
+                }).ToList()
+            };
+
+            return View(vm);
+        }
+
+        // POST: Update quiz
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuiz(CreateQuizViewModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid quiz update submission for QuizId {QuizId}", model.QuizId);
+                return View(model);
+            }
+
+            var quiz = await _repo.GetQuizByIdAsync(model.QuizId);
+            if (quiz == null)
+            {
+                _logger.LogError("Quiz not found with QuizId {QuizId}", model.QuizId);
+                return NotFound();
+            }
+
+            // Update quiz metadata
+            quiz.Title = model.Title;
+            quiz.Description = model.Description;
+
+            // Update existing questions
+            for (int i = 0; i < model.Questions.Count; i++)
+            {
+                var submitted = model.Questions[i];
+
+                // If question exists, update it; otherwise, add new
+                Question dbQuestion;
+                if (i < quiz.Questions.Count)
+                {
+                    dbQuestion = quiz.Questions[i];
+                    dbQuestion.Text = submitted.Text;
+                }
+                else
+                {
+                    dbQuestion = new Question { Text = submitted.Text, Answers = new List<Answer>() };
+                    quiz.Questions.Add(dbQuestion);
+                }
+
+                // Update answers
+                var correctOption = (submitted.CorrectOption ?? "").Trim().ToUpper();
+                var answers = new List<Answer>();
+
+                if (!string.IsNullOrWhiteSpace(submitted.OptionA) || correctOption == "A")
+                    answers.Add(new Answer { Text = submitted.OptionA ?? "", IsCorrect = correctOption == "A", OptionLetter = "A" });
+                if (!string.IsNullOrWhiteSpace(submitted.OptionB) || correctOption == "B")
+                    answers.Add(new Answer { Text = submitted.OptionB ?? "", IsCorrect = correctOption == "B", OptionLetter = "B" });
+                if (!string.IsNullOrWhiteSpace(submitted.OptionC) || correctOption == "C")
+                    answers.Add(new Answer { Text = submitted.OptionC ?? "", IsCorrect = correctOption == "C", OptionLetter = "C" });
+                if (!string.IsNullOrWhiteSpace(submitted.OptionD) || correctOption == "D")
+                    answers.Add(new Answer { Text = submitted.OptionD ?? "", IsCorrect = correctOption == "D", OptionLetter = "D" });
+
+                // Replace answers in the DB question
+                dbQuestion.Answers.Clear();
+                dbQuestion.Answers.AddRange(answers);
+            }
+
+            try
+            {
+                await _repo.UpdateAsync(quiz);
+                TempData["Message"] = "Quiz updated successfully!";
+                return RedirectToAction("ViewOneQuiz", new { id = quiz.QuizId });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating quiz with QuizId {QuizId}", model.QuizId);
+                ModelState.AddModelError("", "An error occurred while updating the quiz. Please try again.");
+                return View(model);
+            }
+        }
+
+
+        // POST: Delete quiz
+        [HttpPost]
+        public async Task<IActionResult> DeleteQuiz(int id)
+        {
+            try
+            {
+                await _repo.DeleteAsync(id);
+                TempData["Message"] = "Quiz deleted successfully!";
+                return RedirectToAction("ViewQuizzes");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting quiz");
+                TempData["Error"] = "An error occurred while deleting the quiz.";
+                return RedirectToAction("ViewOneQuiz", new { id });
+            }
+        }
+
 
     }
                 
